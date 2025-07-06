@@ -1,0 +1,516 @@
+/* Custom font for name signature*/
+@font-face {
+  font-family: 'Tuesday Night';
+  src: url('assets/fonts/TuesdayNight-Regular.woff') format('woff');
+}
+
+/*  Fix scaling issues */
+* {
+  box-sizing: border-box;
+}
+
+/* Global variables */
+:root {
+  --main-color: #c07f50;
+  --bg-color: #ffffff;
+  --sidebar-bg: #f8f2ed;
+  --text-color: #1a1e21;
+  --info-bg: rgba(255, 255, 255, 0.95);
+  --info-text-color: #1a1e21;
+  --card-bg: #ffffff;
+  --blog-bg: #f7f0ea;
+}
+
+/* Dark Mode */
+.dark-mode {
+  --bg-color: #0c0c0c;
+  --sidebar-bg: #111111;
+  --text-color: #ffffff;
+  --info-bg: rgba(17, 17, 17, 0.95);
+  --info-text-color: #ffffff;
+  --card-bg: #1a1a1a;
+  --blog-bg: #1a1a1a;
+}
+
+/* General Settings*/
+body {
+  margin: 0;
+  font-family: 'Jost', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  overflow-x: hidden;
+  visibility: hidden;
+}
+
+html.loaded body {
+  visibility: visible;
+}
+
+/*  Menu button for small screens*/
+#menu-toggle {
+  display: none;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  font-size: 2rem;
+  z-index: 1001;
+  color: var(--main-color);
+  cursor: pointer;
+}
+
+
+
+
+@media (max-width: 768px) {
+  #menu-toggle {
+    display: block; /* Show menu button on mobile */
+  }
+}
+
+
+/*  Sidebar */
+.sidebar.left {
+  width: 250px;
+  height: 100vh;
+  background-color: var(--sidebar-bg);
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  transition: 0.3s ease;
+}
+@media (max-width: 768px) {
+  /* إخفاء القائمة الجانبية خارج الشاشة (تُصبح مخفية) */
+  .sidebar.left {
+    transform: translateX(-100%);
+    position: fixed;
+    width: 220px;
+    height: 100vh;
+    z-index: 1001;
+    transition: transform 0.3s ease; /* حركة الانزلاق */
+  }
+
+  /* عند الضغط على زر القائمة، تظهر القائمة */
+  .sidebar.left.active {
+    transform: translateX(0);
+  }
+
+  /* إلغاء الهامش الأيسر للمحتوى الرئيسي */
+  .main-content {
+    margin-left: 0;
+  }
+
+  /* تعديل صندوق التعريف في قسم البطل ليكون مرن أكثر على الجوال */
+  .info-box {
+    position: static;
+    transform: none;
+    margin: 20px auto;
+  }
+}
+
+/* Sidebar profile image styling */
+.sidebar .profile img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+/* Sidebar signature (name or logo) */
+.sidebar .signature {
+  font-family: 'Tuesday Night', cursive;
+  font-size: 2rem;
+  color: var(--main-color);
+  margin-top: 10px;
+}
+/* Sidebar menu list styling */
+.sidebar .menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0;
+}
+/* Sidebar menu item spacing */
+.sidebar .menu li {
+  margin: 10px 0;
+}
+/* Sidebar menu links */
+.sidebar .menu a {
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: 500;
+}
+/* Sidebar menu links on hover */
+.sidebar .menu a:hover {
+  color: var(--main-color);
+}
+/* Sidebar footer styling */
+.sidebar .footer {
+  margin-top: auto;
+  font-size: 0.85rem;
+  color: #888;
+}
+/* Theme toggle section in sidebar */
+.theme-toggle-container {
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid #ccc;
+  text-align: center;
+}
+/* Theme toggle icon styling */
+.theme-toggle-container #theme-icon {
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: var(--main-color);
+  transition: color 0.3s ease;
+}
+/* Theme toggle icon on hover */
+.theme-toggle-container #theme-icon:hover {
+  color: #8a5c2c;
+}
+
+/* Main content section beside the sidebar */
+.main-content {
+  margin-left: 250px;
+  transition: margin-left 0.3s ease;
+}
+/* Section padding inside main content */
+.section {
+  padding: 4rem 2rem;
+}
+/* Sub title styling */
+.sub-title {
+  font-size: 0.9rem;
+  color: #999;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+/* Main title styling */
+.title {
+  font-size: 2rem;
+  color: var(--main-color);
+  margin-bottom: 1.5rem;
+}
+
+/* Hero section full screen */
+.hero-section {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+}
+/* Hero background image */
+.hero-bg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* Info box inside hero section */
+.info-box {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--info-bg);
+  color: var(--info-text-color);
+  padding: 20px;
+  border-radius: 12px;
+  max-width: 400px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  text-align: left;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+/* Name in hero info box */
+.info-box .name {
+  color: var(--main-color);
+  font-size: 1.5rem;
+}
+/* Job title in hero info box */
+.info-box .job {
+  color: #777;
+  font-size: 1rem;
+  margin-bottom: 15px;
+}
+/* Contact list in hero info box */
+.info-box .contact {
+  list-style: none;
+  padding: 0;
+}
+/* Contact items in hero info box */
+.info-box .contact li {
+  margin: 6px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #333;
+}
+/* Icons in contact items */
+.info-box .contact i {
+  color: var(--main-color);
+}
+
+/* About section grid layout */
+.about-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-top: 2rem;
+}
+/* Left and right info columns in about section */
+.about-grid .left-info,
+.about-grid .right-info {
+  flex: 1;
+  min-width: 240px;
+}
+/* About section image styling */
+.about-img {
+  margin-top: 2rem;
+  text-align: center;
+}
+/* About image styling */
+.about-img img {
+  max-width: 300px;
+  border-radius: 12px;
+}
+/* Download button styling */
+.download-btn {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 10px 20px;
+  background-color: var(--main-color);
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+/* Services grid layout */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+/* Service card styling */
+.service-card {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  position: relative;
+}
+/* Service card hover effect */
+.service-card:hover {
+  transform: translateY(-5px);
+}
+/* Service card icon styling */
+.service-card .icon {
+  font-size: 2rem;
+  color: var(--main-color);
+}
+/* Service card number styling */
+.service-card .number {
+  position: absolute;
+  bottom: 10px;
+  right: 15px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #ccc;
+}
+
+/* Projects and blog grid layout */
+.projects-grid,
+.blog-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+/* Project and blog card base styling */
+.project-card,
+.blog-post {
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+/* Project and blog images */
+.project-card img,
+.blog-post img {
+  width: 100%;
+  display: block;
+}
+/* Project info and blog content */
+.project-card .info,
+.blog-post .content {
+  padding: 15px;
+}
+/* Blog post metadata */
+.blog-post .meta {
+  font-size: 0.85rem;
+  color: #999;
+}
+/* Blog post title styling */
+.blog-post .title {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+/* Contact info list styling */
+.contact-info ul.contact {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 2rem;
+}
+/* Contact info list items */
+.contact-info ul.contact li {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+/* Contact form inputs and textarea */
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  background: transparent;
+  margin-bottom: 15px;
+}
+/* Contact form button styling */
+.contact-form button {
+  padding: 10px 20px;
+  background: var(--main-color);
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Scroll to top button styling */
+#scrollToTop {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: var(--main-color);
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: none;
+  z-index: 999;
+}
+
+/* Overlay effect on images when active (click effect) */
+.project-card,
+.blog-post {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+/* Overlay color effect on click */
+.project-card::before,
+.blog-post::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(192, 127, 80, 0.4);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+/* Show overlay on active (click) */
+.project-card:active::before,
+.blog-post:active::before {
+  opacity: 1;
+}
+/* Ensure image is behind overlay */
+.project-card img,
+.blog-post img {
+  display: block;
+  width: 100%;
+  height: auto;
+  z-index: 0;
+}
+/* Ensure content stays above overlay */
+.project-card .info,
+.blog-post .content {
+  position: relative;
+  z-index: 2;
+}
+
+/* Active state for service card */
+.service-card.active {
+  background-color: #f0c987;
+  color: white;
+  box-shadow: 0 4px 8px rgba(240, 200, 135, 0.5);
+}
+/* Active state for icon and number in service card */
+.service-card.active .icon,
+.service-card.active .number {
+  color: white;
+}
+
+/* Active sidebar menu link */
+.sidebar a.active {
+  color: var(--main-color);
+  font-weight: bold;
+}
+
+/* RTL (Right-To-Left) support for sidebar and main content */
+html.rtl .sidebar {
+  left: auto !important;
+  right: 0 !important;
+  text-align: right;
+}
+
+html.rtl .main-content {
+  margin-left: 0 !important;
+  margin-right: 250px !important;
+}
+/* Default sidebar positioning for LTR (Left-To-Right) */
+html:not(.rtl) .sidebar {
+  left: 0;
+  right: auto;
+  text-align: left;
+}
+
+/* Responsive styles for small screens */
+@media (max-width: 768px) {
+  /* Sidebar hidden by default on mobile */
+  .sidebar.left {
+    transform: translateX(-100%);
+    position: fixed;
+    width: 220px;
+  }
+  /* Sidebar visible when active on mobile */
+  .sidebar.left.active {
+    transform: translateX(0);
+  }
+  /* Adjust main content on mobile */
+  .main-content {
+    margin-left: 0;
+    width: 100%;
+  }
+  /* Info box in hero section on mobile */
+  .info-box {
+    position: static;
+    transform: none;
+    margin: 20px auto;
+  }
+
+
+
+
+
+
+  
+}
